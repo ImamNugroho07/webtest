@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel = "shortcut icon" type = "image/x-icon" href = "{{ url_for('static', filename='icon.ico') }}"/>
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
+      integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr"
+      crossorigin="anonymous"
+    />
+    <link
+      href="https://fonts.googleapis.com/css?family=Dosis"
+      rel="stylesheet"
+    />
+    <link rel="shortcut icon" href="#" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}" />
+    <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+    <title>All Members</title>
+  </head>
+  <body>
+    <!-- Header -->
+    <header id="header-inner">
+        <div class="container">
+          <nav id="main-nav">
+            <h1 id="logo">
+                <img src="{{ url_for('static', filename='Logo_YPB.png') }}" alt="" class="circle">
+                <span>Halaman Utama</span>
+            </h1>
+          </nav>
+
+        </div>
+      </header>
+
+    <section id="contact-a" class="dashboard text-center py-3">
+      <div class="container">
+        <h2 class="section-title">Semua Teman</h2>
+
+        <!-- Hero Image -->
+        <div class="hero-content text-center lead"><button class="pop-btn">
+          <a id="popup">Teman Baru?</a></button>
+        </div>
+
+
+        <!-- Modal Section -->
+
+        <div class="bg-modal">
+          <div class="modal-contents">
+
+            <div class="close">+</div>
+            <h1>Tambah Teman</h1>
+            <small></small>
+
+            <form  method = 'POST'>
+              <input
+              type="text"
+              class="text-input name-input"
+              placeholder="nama"
+              required = "required"
+              name="nama"
+              />
+              <select name="kelamin" id="kelamin" required>
+                  <option value="">Kelamin</option>
+                  <option value="Laki Laki">Laki Laki</option>
+                  <option value="Perempuan">Perempuan</option>
+              </select>
+
+              <input
+              type="text"
+              class="text-input name-input"
+              placeholder="email"
+              required = "required"
+              name="email"
+              />
+
+              <button type="submit" class="btn-dark">Tambah</button>
+            </form>
+
+          </div>
+        </div>
+
+        <div class="grid-2">
+
+
+          <div>
+            <p class="lead text-center">Teman Temanku</p>
+            <table data-excel-name="Production" class="content-table production">
+                <tbody>
+                  <thead>
+                  <tr>
+                    <th></th>
+                    <th>Nama</th>
+                    <th>Email</th>
+                    <th>Kelamin</th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for sur in user %}
+                  <tr>
+                    <th></th>
+                    <td>{{ sur.name }}</td>
+                    <td>{{ sur.kelamin }}</td>
+                    <td>{{ sur.email }}</td>
+                    <td><li><a href="/konten/{{ sur.id }}">view</a></li></td>
+                    <td>
+                      <a href="/delete_user/{{ sur.id }}" onclick="return confirm('Are you sure you want to delete this item?')"><i class="fas fa-trash"></i></a>
+                    </td>
+                  </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <script>
+      document.getElementById('popup').addEventListener("click", function() {
+        document.querySelector('.bg-modal').style.display = "flex";
+      });
+
+      document.querySelector('.close').addEventListener("click", function() {
+        document.querySelector('.bg-modal').style.display = "none";
+      });
+    </script>
+
+    <script>
+      var uri = document.getElementById("title").innerHTML;
+      var res = decodeURI(uri);
+      document.getElementById("title").innerHTML = res;
+    </script>
+  </body>
+</html>
